@@ -104,8 +104,11 @@ $.when (
       G.projected_burn = parseInt(G.tracker_bmr_logged_calories + G.remaining_BMR_calories);
       //$('#calories-consumed').html('Pace: ' + G.projected_burn);
       $('#calories-in').html(G.caloriesIn);
+      $('#calories-burned').html(G.tracker_bmr_logged_calories);
       $('#projected-burn').html(G.projected_burn);
       $('#calorie-deficit').html(G.projected_burn - G.caloriesIn);
+      $('#current-deficit').html(G.tracker_bmr_logged_calories - G.caloriesIn);
+
       //$('#calories-left').html('Rem: ' + parseInt(G.remaining_BMR_calories));
       //$('#calories-out').html('Curr Out: ' + G.tracker_bmr_logged_calories);
     }

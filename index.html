@@ -3,7 +3,7 @@
 	<head>
 		<title>Can I Eat??</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 		<script src="app4.js"></script>
+ 		<script src="app.js"></script>
  		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
@@ -12,13 +12,19 @@
 
 				<table>
 					<tr>
-						<td>Cal -</td><td><div id="calories-in">000</div></td>
+						<td class="leftcol">Calories Eaten</td><td class="rightcol"><div id="calories-in">000</div></td>
 					</tr>
 					<tr>
-						<td>Out -</td><td><div id="projected-burn">000</div></td>
+						<td class="leftcol">Calories Burned</td><td class="rightcol"><div id="calories-burned">000</div></td>
 					</tr>
 					<tr>
-						<td>Def -</td><td><div id="calorie-deficit">000</div></td>
+						<td class="leftcol">Current Deficit</td><td class="rightcol"><div id="current-deficit">000</div></td>
+					</tr>
+				<tr>
+						<td class="leftcol">Projected Burn</td><td class="rightcol"><div id="projected-burn">000</div></td>
+					</tr>
+					<tr>
+						<td class="leftcol">Projected Deficit</td><td class="rightcol"><div id="calorie-deficit">000</div></td>
 					</tr>
 
 
@@ -27,8 +33,7 @@
 			</div>
 		</div>
 		<div class="login-button">
-			<a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228PWN&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800
-">Log in to FitBit</a>
+			<a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228PWN&redirect_uri=https%3A%2F%2Fwww.canieat.danfitzpatrick.net&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">Log in to FitBit</a>
 		</div>
 	</body>
 </html>
