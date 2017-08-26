@@ -3,12 +3,28 @@
 	<head>
 		<title>Can I Eat??</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 		<script src="app.js"></script>
+ 		<script src="app4.js"></script>
  		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
-		<div class="display-table">
-		<div id="calories-left">000</div>
+		<div class="display-table numbers">
+			<div class="display-table-cell">
+
+				<table>
+					<tr>
+						<td>Cal -</td><td><div id="calories-in">000</div></td>
+					</tr>
+					<tr>
+						<td>Out -</td><td><div id="projected-burn">000</div></td>
+					</tr>
+					<tr>
+						<td>Def -</td><td><div id="calorie-deficit">000</div></td>
+					</tr>
+
+
+				</table>
+
+			</div>
 		</div>
 		<div class="login-button">
 			<a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228PWN&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800
