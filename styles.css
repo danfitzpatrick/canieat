@@ -16,7 +16,7 @@ body {font-family: helvetica; height:100%; font-size:14px; margin: 0; padding: 0
 .numbers td {
 	margin: 0 auto;
 	color: white;
-	font-size: 5em;
+	font-size: 4.5em;
 }
 
 .display-table-cell {
@@ -24,7 +24,7 @@ body {font-family: helvetica; height:100%; font-size:14px; margin: 0; padding: 0
 	vertical-align: middle;
 }
 td {
-    padding-top: 45px;
+    padding-top: 30px;
 }
 td.leftcol {
     padding-right: 60px;
