@@ -7,4 +7,4 @@ To this end, I was always looking at the Fitbit app's current calorie burn amoun
 
 So I decided to make a simple app that would automatically just add the BMR calories remaining in the day to the current calorie burn normally shown in the tracker. I'm also experimenting with adding in some guesstimated activity calories for the remaining time in the day, and some other things.
 
-Also this opens the door for slicing the data lots of different ways, and showing or putting more emphasis on the numbers that I'm interested in. 
+Also this opens the door for slicing the data lots of different ways, and showing or putting more emphasis on the numbers that I'm interested in.
