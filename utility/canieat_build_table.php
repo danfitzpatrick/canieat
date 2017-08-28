@@ -15,12 +15,12 @@ if (!$conn) {
 $sql = "CREATE TABLE canieat_log (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 cal_eaten INT(6) NOT NULL,
-cal_eaten INT(6) NOT NULL,
-cal_eaten INT(6) NOT NULL,
-cal_eaten INT(6) NOT NULL,
-cal_eaten INT(6) NOT NULL,
-cal_eaten INT(6) NOT NULL,
-cal_eaten INT(6) NOT NULL,
+cal_burned INT(6) NOT NULL,
+curr_deficit INT(6) NOT NULL,
+proj_burn INT(6) NOT NULL,
+proj_burn_2 INT(6) NOT NULL,
+proj_def INT(6) NOT NULL,
+proj_def_2 INT(6) NOT NULL,
 time_logged TIMESTAMP
 )";
 
