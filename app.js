@@ -28,7 +28,7 @@ function formatDate(date) {
 G.yesterday = formatDate(date);
 
 $.when (
-
+  //
   $.ajax({ // activities/calories ... includes tracker, bmr, manually-logged activity
     type: 'GET',
     beforeSend: function(request) { request.setRequestHeader("Authorization", 'Bearer ' + access_token); },
@@ -39,6 +39,38 @@ $.when (
         //        G.BMR_by_minute = bmr / ( 24 * 60 );
       }
   }),
+
+      $.ajax({ // activities/caloriesBMR - Only BMR calories. FOR PAST MONTH
+        type: 'GET',
+        beforeSend: function(request) { request.setRequestHeader("Authorization", 'Bearer ' + access_token); },
+        url: "https://api.fitbit.com/1/user/"+userId+"/activities/caloriesBMR/date/today/1m.json",
+        success:function(data, status, xhr){
+           G.data_length = data['activities-caloriesBMR'].length;
+           var totalBMR = 0;
+           for( var i = 0; i < (G.data_length-1); i++ ){
+             totalBMR += parseInt(data['activities-caloriesBMR'][i]['value']);
+           }
+           G.totalBMR = totalBMR;
+           console.log('totalBMR ', totalBMR);
+          }
+      }),
+
+    $.ajax({ // activities/tracker/calories - ALL ACTIVITY FOR PAST MONTH.
+      type: 'GET',
+      beforeSend: function(request) { request.setRequestHeader("Authorization", 'Bearer ' + access_token); },
+      url: "https://api.fitbit.com/1/user/"+userId+"/activities/tracker/calories/date/today/1m.json",
+      success:function(data, status, xhr){
+        var data_length = data['activities-tracker-calories'].length;
+        var totalCalories = 0;
+        for( var i = 0; i < (data_length-1); i++ ){
+          totalCalories += parseInt(data['activities-tracker-calories'][i]['value']);
+        }
+        G.totalCalories = totalCalories;
+        console.log('totalCalories ', totalCalories);
+        }
+    }),
+
+
 
   $.ajax({ // activities/caloriesBMR - Only BMR calories.
     type: 'GET',
@@ -51,46 +83,16 @@ $.when (
       }
   }),
 
-      $.ajax({ //
-        type: 'GET',
-        beforeSend: function(request) { request.setRequestHeader("Authorization", 'Bearer ' + access_token); },
-        url: "https://api.fitbit.com/1/user/"+userId+"/activities/activityCalories/date/today/1d.json",
-        success:function(data, status, xhr){
-        //  console.log(data);
-          G.activity_calories = parseInt(data['activities-activityCalories'][0]['value']);
-          }
-      }),
-
-          $.ajax({ //activities/tracker/calories - Calories burned inclusive of BMR according to movement captured by a Fitbit tracker.
-            type: 'GET',
-            beforeSend: function(request) { request.setRequestHeader("Authorization", 'Bearer ' + access_token); },
-            url: "https://api.fitbit.com/1/user/"+userId+"/activities/tracker/activityCalories/date/today/1d.json",
-            success:function(data, status, xhr){
-          //    console.log(data);
-
-              G.tracker_activity_calories = parseInt(data['activities-tracker-activityCalories'][0]['value']);
-              }
-          }),
-
           $.ajax({ //activities/tracker/calories - Calories burned inclusive of BMR according to movement captured by a Fitbit tracker.
             type: 'GET',
             beforeSend: function(request) { request.setRequestHeader("Authorization", 'Bearer ' + access_token); },
             url: "https://api.fitbit.com/1/user/"+userId+"/foods/log/caloriesIn/date/today/1d.json",
             success:function(data, status, xhr){
-              console.log(data);
+              //console.log(data);
 
               G.caloriesIn = parseInt(data['foods-log-caloriesIn'][0]['value']);
               }
-          }),
-
-    $.ajax({ //activities/tracker/calories - Calories burned inclusive of BMR according to movement captured by a Fitbit tracker.
-      type: 'GET',
-      beforeSend: function(request) { request.setRequestHeader("Authorization", 'Bearer ' + access_token); },
-      url: "https://api.fitbit.com/1/user/"+userId+"/activities/tracker/calories/date/today/1d.json",
-      success:function(data, status, xhr){
-        G.tracker_bmr_calories = parseInt(data['activities-tracker-calories'][0]['value']);
-        }
-    })
+          })
 
 )
     .then( myFunc, myFailure );
@@ -98,11 +100,23 @@ $.when (
     function myFunc() {
       //console.log (G.BMR_by_minute);
       G.remaining_BMR_calories = G.minsToMidnight * G.BMR_by_minute;
+      //G.avg_activity_by_min = ((G.totalCalories - G.totalBMR)/G.data_length)/( 24 * 60 );
+
+      G.avg_activity_by_day = ((G.totalCalories - G.totalBMR)/G.data_length);
+      console.log('G.avg_activity_by_day ', G.avg_activity_by_day);
+
+
+      G.remaining_activity_calories = G.minsToMidnight * G.avg_activity_by_min;
       G.BMR_calories_so_far = G.BMR_total_yesterday - G.remaining_BMR_calories;
-      console.log(G);
-      console.log(G.BMR_calories_so_far);
+
       G.projected_burn = parseInt(G.tracker_bmr_logged_calories + G.remaining_BMR_calories);
-      //$('#calories-consumed').html('Pace: ' + G.projected_burn);
+
+      G.projected_burn_2 = parseInt(G.tracker_bmr_logged_calories + G.remaining_activity_calories);
+
+
+
+
+      $('#calorie-deficit-2').html(G.projected_burn_2 );
       $('#calories-in').html(G.caloriesIn);
       $('#calories-burned').html(G.tracker_bmr_logged_calories);
       $('#projected-burn').html(G.projected_burn);
