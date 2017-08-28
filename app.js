@@ -100,27 +100,34 @@ $.when (
     function myFunc() {
       //console.log (G.BMR_by_minute);
       G.remaining_BMR_calories = G.minsToMidnight * G.BMR_by_minute;
-      //G.avg_activity_by_min = ((G.totalCalories - G.totalBMR)/G.data_length)/( 24 * 60 );
+      G.avg_activity_by_day = ((G.totalCalories - G.totalBMR)/G.data_length)/2;
+      G.avg_activity_by_min = (G.avg_activity_by_day)/( 24 * 60 );
 
-      G.avg_activity_by_day = ((G.totalCalories - G.totalBMR)/G.data_length);
+      console.log('G.BMR_total_yesterday ', G.BMR_total_yesterday);
       console.log('G.avg_activity_by_day ', G.avg_activity_by_day);
 
 
       G.remaining_activity_calories = G.minsToMidnight * G.avg_activity_by_min;
+      console.log('G.remaining_activity_calories ', G.remaining_activity_calories);
+
       G.BMR_calories_so_far = G.BMR_total_yesterday - G.remaining_BMR_calories;
 
       G.projected_burn = parseInt(G.tracker_bmr_logged_calories + G.remaining_BMR_calories);
 
-      G.projected_burn_2 = parseInt(G.tracker_bmr_logged_calories + G.remaining_activity_calories);
+      G.projected_burn_2 = parseInt(G.tracker_bmr_logged_calories + G.remaining_activity_calories + G.remaining_BMR_calories);
 
 
 
 
-      $('#calorie-deficit-2').html(G.projected_burn_2 );
       $('#calories-in').html(G.caloriesIn);
       $('#calories-burned').html(G.tracker_bmr_logged_calories);
+
       $('#projected-burn').html(G.projected_burn);
+      $('#projected-burn-2').html(G.projected_burn_2 );
+
       $('#calorie-deficit').html(G.projected_burn - G.caloriesIn);
+      $('#calorie-deficit-2').html(G.projected_burn_2 - G.caloriesIn);
+
       $('#current-deficit').html(G.tracker_bmr_logged_calories - G.caloriesIn);
 
       //$('#calories-left').html('Rem: ' + parseInt(G.remaining_BMR_calories));
